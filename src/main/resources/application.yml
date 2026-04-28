@@ -1,4 +1,3 @@
-# src/main/resources/application.yml
 spring:
   application:
     name: product-lock
@@ -24,6 +23,13 @@ spring:
 
 server:
   port: 8080
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
 
 # Logging
 logging:

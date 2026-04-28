@@ -2,6 +2,26 @@
 
 Product Lock Management API built with Spring Boot.
 
+---
+
+## Prerequisites
+
+Install the required modules before running:
+
+```bash
+module add maven/3.9.9
+module add java/21
+```
+
+Verify installation:
+
+```bash
+mvn -version
+java -version
+```
+
+---
+
 ## Run the Application
 
 ```bash
@@ -14,10 +34,11 @@ The application starts on `http://localhost:8080`.
 
 ## API Endpoints
 
-Base URL: `http://localhost:8080/api/v1/product-locks`
+Base URL: `http://localhost:8080`
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
+| GET | `/` | Service health check |
 | POST | `/api/v1/product-locks` | Create a new lock |
 | GET | `/api/v1/product-locks` | Get all locks |
 | GET | `/api/v1/product-locks/{id}` | Get lock by ID |
@@ -31,7 +52,22 @@ Base URL: `http://localhost:8080/api/v1/product-locks`
 
 ## Usage Examples
 
-### 1. Create a Lock
+### 1. Service Health Check
+
+```bash
+curl http://localhost:8080/
+```
+
+Response (`200 OK`):
+
+```json
+{
+  "status": "UP",
+  "message": "Product Lock Service is up and running"
+}
+```
+
+### 2. Create a Lock
 
 ```bash
 curl -X POST http://localhost:8080/api/v1/product-locks \
@@ -60,7 +96,7 @@ Response (`201 Created`):
 }
 ```
 
-### 2. Get All Locks
+### 3. Get All Locks
 
 ```bash
 curl http://localhost:8080/api/v1/product-locks
@@ -83,7 +119,7 @@ Response (`200 OK`):
 ]
 ```
 
-### 3. Get Lock by ID
+### 4. Get Lock by ID
 
 ```bash
 curl http://localhost:8080/api/v1/product-locks/1
@@ -104,7 +140,7 @@ Response (`200 OK`):
 }
 ```
 
-### 4. Get Lock by Product Number and Version
+### 5. Get Lock by Product Number and Version
 
 ```bash
 curl http://localhost:8080/api/v1/product-locks/product/PRD-001/version/1.0
@@ -125,7 +161,7 @@ Response (`200 OK`):
 }
 ```
 
-### 5. Get All Locks for a Product
+### 6. Get All Locks for a Product
 
 ```bash
 curl http://localhost:8080/api/v1/product-locks/product/PRD-001
@@ -158,7 +194,7 @@ Response (`200 OK`):
 ]
 ```
 
-### 6. Check Lock Status
+### 7. Check Lock Status
 
 ```bash
 curl http://localhost:8080/api/v1/product-locks/product/PRD-001/version/1.0/status
@@ -172,7 +208,7 @@ Response (`200 OK`):
 }
 ```
 
-### 7. Update a Lock (e.g. Unlock)
+### 8. Update a Lock (e.g. Unlock)
 
 ```bash
 curl -X PUT http://localhost:8080/api/v1/product-locks/product/PRD-001/version/1.0 \
@@ -201,7 +237,7 @@ Response (`200 OK`):
 }
 ```
 
-### 8. Delete a Lock
+### 9. Delete a Lock
 
 ```bash
 curl -X DELETE http://localhost:8080/api/v1/product-locks/product/PRD-001/version/1.0

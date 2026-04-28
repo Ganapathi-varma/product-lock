@@ -1,26 +1,19 @@
 # Multi-stage build for smaller final image
 
 # Stage 1: Build
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM maven:3.9-eclipse-temurin-21-alpine AS builder
 
 WORKDIR /app
 
-# Copy maven wrapper and pom
-COPY mvnw .
-COPY .mvn .mvn
+# Copy pom and download dependencies (cached layer)
 COPY pom.xml .
-
-# Make mvnw executable
-RUN chmod +x mvnw
-
-# Download dependencies (cached layer)
-RUN ./mvnw dependency:go-offline -B
+RUN mvn dependency:go-offline -B
 
 # Copy source code
 COPY src src
 
 # Build the application
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Stage 2: Runtime
 FROM eclipse-temurin:21-jre-alpine
